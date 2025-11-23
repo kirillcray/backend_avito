@@ -103,7 +103,7 @@ class UserViewSet(viewsets.GenericViewSet):
             user = User.objects.get(user_id=user_id)
             user_prs = PullRequest.objects.filter(reviewers=user)
             serializer = PullRequestShortSerializer(user_prs, many=True)
-            serializer.data.pop("assigned_reviewers", None)
+
             return Response(
                 {"user_id": user_id, "pull_requests": serializer.data},
                 status=status.HTTP_200_OK,

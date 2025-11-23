@@ -1,0 +1,28 @@
+version: "3.9"
+
+volumes:
+  pg_data:
+  static:
+
+
+services:
+  db:
+    image: postgres:14
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    container_name: backend
+    env_file: .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - static:/backend_static
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+             cp -r /app/collected_static/. /backend_static/static/ &&
+             gunicorn --bind 0.0.0.0:8080 pr_service.wsgi"
+    depends_on:
+      - db

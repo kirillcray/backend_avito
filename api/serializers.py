@@ -49,8 +49,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class PullRequestShortSerializer(serializers.ModelSerializer):
-    author_id = serializers.CharField()
-
     class Meta:
         model = PullRequest
         fields = [
