@@ -185,7 +185,6 @@ class PullRequestViewSet(viewsets.GenericViewSet):
         pr_id = request.data.get("pull_request_id")
         old_reviewer_id = request.data.get("old_reviewer_id")
 
-        # Получаем PR или 404
         try:
             pr = get_object_or_404(PullRequest, pull_request_id=pr_id)
             old_reviewer = get_object_or_404(User, user_id=old_reviewer_id)
@@ -199,7 +198,6 @@ class PullRequestViewSet(viewsets.GenericViewSet):
                 },
                 status=status.HTTP_404_NOT_FOUND,
             )
-        # Проверка статуса
         if pr.status == "MERGED":
             return Response(
                 {
@@ -246,7 +244,6 @@ class PullRequestViewSet(viewsets.GenericViewSet):
             )
 
         new_reviewer = random.choice(candidates)
-        # Добавляем нового ревьюера
         current_reviewers.append(new_reviewer)
         pr.reviewers.set(current_reviewers)
 

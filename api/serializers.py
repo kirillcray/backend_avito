@@ -9,9 +9,7 @@ class TeamMemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["user_id", "username", "is_active"]
-        extra_kwargs = {
-            "user_id": {"validators": []}  # отключаем проверку unique
-        }
+        extra_kwargs = {"user_id": {"validators": []}}
 
 
 class TeamSerializer(serializers.ModelSerializer):
@@ -126,5 +124,5 @@ class PullRequestSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        rep["author_id"] = instance.author.user_id  # перезаписываем значение
+        rep["author_id"] = instance.author.user_id
         return rep

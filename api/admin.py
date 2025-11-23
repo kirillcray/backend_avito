@@ -20,9 +20,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ("user_id", "username", "team", "is_active")
     list_filter = ("team", "is_active")
     search_fields = ("username", "user_id")
-    list_editable = (
-        "is_active",
-    )  # быстрое включение/отключение прямо в таблице
+    list_editable = ("is_active",)
 
 
 @admin.register(PullRequest)
@@ -42,4 +40,4 @@ class PullRequestAdmin(admin.ModelAdmin):
         "author__username",
     )
     readonly_fields = ("created_at", "merged_at")
-    filter_horizontal = ("reviewers",)  # удобный выбор нескольких ревьюеров
+    filter_horizontal = ("reviewers",)
