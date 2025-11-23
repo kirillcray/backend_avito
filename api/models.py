@@ -40,4 +40,4 @@ class PullRequest(models.Model):
     merged_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return f"{self.pull_request_name} ({self.pull_request_id})"
