@@ -20,9 +20,6 @@ services:
       - "8080:8080"
     volumes:
       - static:/backend_static
-    command: >
-      sh -c "python manage.py collectstatic --noinput &&
-             cp -r /app/collected_static/. /backend_static/static/ &&
-             gunicorn --bind 0.0.0.0:8080 pr_service.wsgi"
+    entrypoint: [ "sh", "./entrypoint.sh" ]
     depends_on:
       - db
